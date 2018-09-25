@@ -1,0 +1,31 @@
+/********************
+Arquivo de estilos base do site
+  - Importação de folha de estilo de normalização (normalize.css)
+  - Importação de componentes do site
+  - Definição dos elementos estruturantes do site
+********************/
+@import "https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css";
+@import "menu-principal.css";
+@import "form-pesquisa.css";
+@import "destaque-artigo.css";
+@import "box-rodape.css";
+
+.cabecalho {
+
+}
+
+.logo {
+    
+}
+
+.conteudo {
+    display: block;
+}
+
+.rodape {
+
+}
+
+.copyright {
+
+}
