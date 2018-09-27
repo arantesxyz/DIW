@@ -11,6 +11,8 @@ Arquivo de estilos base do site
 @import "box-rodape.css";
 
 .cabecalho {
+  background-color: blue;
+  height: 80px;
 
 }
 

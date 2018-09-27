@@ -2,13 +2,35 @@
 Componente menu-principal
 ********************/
 .menu-principal {
-
+    overflow: auto;
 }
 
 .menu-principal > .lista {
-
+    list-style-type: none;
+    background-color: azure;
+    padding: 0;
+    height: 30px;
+    width: 420px;
+    
 }
 
 .menu-principal > .lista > .item {
+    display: inline-block;
+    float: left;
 
+}
+.menu-principal > .lista > .item > a{
+    display:  block;
+    margin: 5px;
+    line-height: 10px;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+}
+.menu-principal > .lista > .item > a:hover{
+    background-color: blueviolet;
+}
+
+.menu-principal .lista .item .atual {
+    
 }
