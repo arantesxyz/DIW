@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    
+    <script>
+        function processaRequisicao(){
+            var tela = document.getElementById('tela');
+            tela.innerHTML = 'It worked!';
+        }
+
+        function deletaRequisicao(){
+            var tela = document.getElementById('tela');
+            tela.innerHTML = "";
+        }
+    </script>
+</head>
+<body>
+    <button onclick="processaRequisicao()">Processar</button>
+    <button onclick="deletaRequisicao()">Deletar</button>
+    <div id="tela"></div>
+</body>
+</html>
