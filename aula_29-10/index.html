@@ -7,20 +7,35 @@
     <title>Document</title>
     
     <script>
-        function processaRequisicao(){
+        function soma(){
+            var op1 = document.getElementById('op1').value;
+            var op2 = document.getElementById('op2').value;
             var tela = document.getElementById('tela');
-            tela.innerHTML = 'It worked!';
+
+            var resultado = parseInt(op1) + parseInt(op2);
+            tela.innerHTML += 'O valor total é: ' + resultado + '<br />';
+        }
+        function menos(){
+            var op1 = document.getElementById('op1').value;
+            var op2 = document.getElementById('op2').value;
+            var tela = document.getElementById('tela');
+
+            var resultado = parseInt(op1) - parseInt(op2);
+            tela.innerHTML += 'O valor total é: ' + resultado + ' <br />';
         }
 
-        function deletaRequisicao(){
-            var tela = document.getElementById('tela');
-            tela.innerHTML = "";
+        function limpar(){
+            document.getElementById('tela').innerHTML = 'Resultados:<br />';
         }
     </script>
 </head>
 <body>
-    <button onclick="processaRequisicao()">Processar</button>
-    <button onclick="deletaRequisicao()">Deletar</button>
-    <div id="tela"></div>
+    Operador 1: <input id="op1" type="text"> <br />
+    Operador 2: <input id="op2" type="text"> <br />
+
+    <button onclick="soma()">Somar</button>
+    <button onclick="menos()">Subtrair</button>
+    <button onclick="limpar()">Limpar resultados</button>
+    <div id="tela">Resultados:<br /></div>
 </body>
 </html>
