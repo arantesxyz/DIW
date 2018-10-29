@@ -7,6 +7,9 @@
     <title>Document</title>
     
     <script>
+        // Funcions //
+
+        // Soma
         function soma(){
             var op1 = document.getElementById('op1').value;
             var op2 = document.getElementById('op2').value;
@@ -15,6 +18,8 @@
             var resultado = parseInt(op1) + parseInt(op2);
             tela.innerHTML += 'O valor total é: ' + resultado + '<br />';
         }
+
+        // Subtração
         function menos(){
             var op1 = document.getElementById('op1').value;
             var op2 = document.getElementById('op2').value;
@@ -23,7 +28,8 @@
             var resultado = parseInt(op1) - parseInt(op2);
             tela.innerHTML += 'O valor total é: ' + resultado + ' <br />';
         }
-
+        
+        // Limpar os resultados
         function limpar(){
             document.getElementById('tela').innerHTML = 'Resultados:<br />';
         }
