@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        function carregaImg() {
+            let files = document.getElementById('picField').files;
+            
+            if (FileReader && files && files.length) {
+                var fr = new FileReader();
+                fr.onload = function () {
+                    let imgElement = document.getElementById('imgPage');
+                    imgElement.src = fr.result;
+                    imgElement.style.width = '200px';
+                    document.getElementById('tela').innerHTML = fr.result;
+
+                }
+                fr.readAsDataURL(files[0]);
+            }
+        }
+
+    </script>
+</head>
+
+<body>
+
+    <img id="imgPage" src="data:image/gif;base64,R0lGODlhEAAQAMQAAORHHOVSKudfOulrSOp3WOyDZu6QdvCchPGolfO0o/XBs/fNwfjZ0frl3/zy7////wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAkAABAALAAAAAAQABAAAAVVICSOZGlCQAosJ6mu7fiyZeKqNKToQGDsM8hBADgUXoGAiqhSvp5QAnQKGIgUhwFUYLCVDFCrKUE1lBavAViFIDlTImbKC5Gm2hB0SlBCBMQiB0UjIQA7"
+        alt="">
+
+    <input type="file" name="picField" id="picField" onchange="carregaImg ()">
+
+    <div id="tela"></div>
+</body>
+
+</html>

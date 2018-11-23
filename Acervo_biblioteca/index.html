@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Acervo - Biblioteca</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+        <script defer src="https://dev.arantes.xyz/resources/fontawesome-free-5.5.0-web/js/all.js"></script>
+</head>
+
+<body onload="init()">
+    <h1>Acervo - Biblioteca</h1>
+
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-sm-2">
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" id="btnNovo">
+                    Novo registro
+                </button>
+            </div>
+
+            <!-- Search bar starts here -->
+            <div class="col-sm-5">
+                <div class="input-group">
+                    <div class="input-group-btn search-panel">
+                        <select id="searchInp" class="form-control">
+                            <option selected disabled value="All">Pesquisar por:</option>
+                            <option value="nref">Número do exemplar</option>
+                            <option value="nome">Nome do livro</option>
+                            <option value="autor">Nome do Autor</option>
+                        </select>
+                    </div>
+                    <input type="text" class="form-control" name="x" placeholder="Pesquisar...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button"><i class="fas fa-search"></i></button>
+                    </span>
+                </div>
+            </div>
+            <!-- Search bar ends here -->
+        </div>
+
+        <!-- Espacer -->
+        <div class="mt-3"></div>
+
+        <!-- Modal starts here -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><span id="modTitle"></span></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form-livros">
+
+                            <div class="form-group row">
+                                <div class="col-sm-2">
+                                    <label for="inputId">ID</label>
+                                    <input type="text" class="form-control" id="inputId" placeholder="ID" disabled>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label for="inputNum">Exemplar <span class="red">*</span></label>
+                                    <input type="text" class="form-control" id="refInp" placeholder="Número do exemplar"
+                                        required>
+                                </div>
+                                <div class="col-sm-7">
+                                    <label for="nomeInp">Nome <span class="red">*</span></label>
+                                    <input type="text" class="form-control" id="nomeInp" required placeholder="Informe o nome do livro">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+
+                                <div class="col-sm-4">
+                                    <label for="autorInp">Autor <span class="red">*</span></label>
+                                    <input type="text" class="form-control" id="autorInp" required placeholder="Informe o nome do autor">
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="volInp">Volume <span class="red">*</span></label>
+                                    <input type="text" class="form-control" id="volInp" required placeholder="Informe o volume">
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="clasInp">Classificação <span class="red">*</span></label>
+                                    <input type="text" class="form-control" id="clasInp" required placeholder="Informe o Genero">
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label>Imagem</label>
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <span class="btn btn-default btn-file">
+                                                Procurar… <input type="file" id="imgInp">
+                                            </span>
+                                        </span>
+                                        <input type="text" class="form-control" readonly>
+                                    </div>
+                                    <img id='img-upload' src="imgs/placeholder.gif" />
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="statusInp">Status</label>
+                                    <select id="statusInp" class="form-control">
+                                        <option selected value="Disponível">Disponível</option>
+                                        <option value="Emprestado">Emprestado</option>
+                                        <option value="Perdido">Perdido</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-4">
+                                    <small><span class="red">*</span> Campos obrigatórios</small>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-success" id="btnInsert" value="Inserir">
+                        <input type="button" class="btn btn-warning alterar" id="btnUpdate" value="Alterar">
+                        <input type="button" class="btn btn-danger alterar" id="btnDelete" value="Excluir">
+                        <input type="button" class="btn btn-secondary" id="btnClear" value="Limpar Form">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal-1 ends here -->
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="grid-contatos" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Autor</th>
+                            <th scope="col">Volume</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-contatos">
+                        <tr>
+                            <td scope="row">1</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/fakedb.js"></script>
+    <script src="js/avatar.js"></script>
+    <script>
+        function exibeContatos() {
+            // Remove todas as linhas do corpo da tabela
+            $("#table-contatos").html("");
+
+            // Popula a tabela com os registros do banco de dados
+            for (i = 0; i < db.data.length; i++) {
+                let book = db.data[i];
+                $("#table-contatos").append(`<tr><td scope="row">${book.id}</td><td>${book.nome}</td><td>${book.autor}</td><td>${book.volume}</td><td>${book.status}</td></tr>`);
+            }
+        }
+
+        function init() {
+            // Adiciona funções para tratar os eventos 
+            $("#btnInsert").click(function () {
+                // Verfica se o formulário está preenchido corretamente
+                if (!$('#form-livros')[0].checkValidity()) {
+                    displayMessage("Preencha o formulário corretamente.");
+                    return;
+                }
+
+                // Obtem os valores dos campos do formulários
+                let iRef = $('#refInp').val();
+                let iNome = $('#nomeInp').val();
+                let iAutor = $("#autorInp").val();
+                let iVolume = $('#volInp').val();
+                let iClass = $('#clasInp').val();
+                let iStatus = $('#statusInp').val();
+                let iImg = imgb64;
+                console.log(iImg);
+                let book = { ref: iRef, nome: iNome, autor: iAutor, volume: iVolume, classificacao: iClass, status: iStatus, img: iImg };
+                
+                insertBook(book);
+
+                // Reexibe os contatos
+                exibeContatos();
+
+                // Limpa o formulario
+                $("#form-livros")[0].reset();
+                $('#exampleModal').modal('toggle');
+            });
+
+            // Intercepta o click do botão Alterar
+            $("#btnUpdate").click(function () {
+                // Obtem os valores dos campos do formulário
+                let campoId = $("#inputId").val();
+                if (campoId == "") {
+                    displayMessage("Selecione um contato para ser alterado.");
+                    return;
+                }
+                let iRef = $('#refInp').val();
+                let iNome = $("#nomeInp").val();
+                let iAutor = $("#autorInp").val();
+                let iVolume = $('#volInp').val();
+                let iClass = $('#clasInp').val();
+                let iStatus = $('#statusInp').val();
+                let iImg = imgb64;
+                let book = { ref: iRef, nome: iNome, autor: iAutor, volume: iVolume, classificacao: iClass, status: iStatus, img: iImg };
+
+                updateLivro(parseInt(campoId), book);
+
+                // Reexibe os contatos
+                exibeContatos();
+
+                // Limpa o formulario
+                $("#form-livros")[0].reset();
+                $('#exampleModal').modal('toggle');
+            });
+
+            // Intercepta o click do botão Excluir
+            $("#btnDelete").click(function () {
+                let campoId = $("#inputId").val();
+                if (campoId == "") {
+                    displayMessage("Selecione um livro a ser excluído.");
+                    return;
+                }
+                deleteLivro(parseInt(campoId));
+
+                // Reexibe os contatos
+                exibeContatos();
+
+                // Limpa o formulario
+                $("#form-livros")[0].reset();
+                $('#exampleModal').modal('toggle');
+            });
+
+            // Intercepta o click do botão Listar Contatos
+            $("#btnClear").click(function () {
+                $("#form-livros")[0].reset();
+            });
+
+            // Intercepta o click do botão Novo Registro
+            $("#btnNovo").click(function () {
+                $("#form-livros")[0].reset();
+                $('#exampleModal').modal('show');
+                $('#btnInsert').css("display", "block");
+                $('#modTitle').text("Criar novo registro");
+            });
+
+            // Escuta o evento do fechamendo do modal
+            $('#exampleModal').on('hidden.bs.modal', function () {
+                $('#btnInsert').css("display", "none");
+                $('.alterar').css("display", "none");
+                $('#img-upload').attr('src', "imgs/placeholder.gif");
+                imgb64 = "imgs/placeholder.gif";
+                $('#modTitle').text("");
+            });
+
+            // Oculta a mensagem de aviso após alguns segundos
+            $('#msg').bind("DOMSubtreeModified", function () {
+                window.setTimeout(function () {
+                    $(".alert").fadeTo(500, 0).slideUp(500, function () {
+                        $(this).remove();
+                    });
+                }, 5000);
+            });
+
+            // Preenche o formulário quando o usuario clicar em uma linha da tabela 
+            $("#grid-contatos").on("click", "tr", function (e) {
+                let id = this.childNodes[0].firstChild.nodeValue;
+                // let index = db.data.map(obj => obj.id).indexOf(parseInt(id));
+                let book = db.data[db.data.map(obj => obj.id).indexOf(parseInt(id))];
+
+                $('#exampleModal').modal('show');
+
+                $('.alterar').css("display", "block");
+                $('#modTitle').text("Alterar um registro");
+
+                $('#inputId').val(id);
+                $('#refInp').val(book.ref);
+                $('#nomeInp').val(book.nome);
+                $("#autorInp").val(book.autor);
+                $('#volInp').val(book.volume);
+                $('#clasInp').val(book.classificacao);
+                $('#statusInp').val(book.status);
+                $('#img-upload').attr('src', book.imagem);
+
+                // TODO
+                // set the imagem
+
+            });
+
+            exibeContatos();
+        }
+    </script>
+</body>
+
+</html>
