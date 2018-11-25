@@ -15,7 +15,7 @@
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-        <script defer src="https://dev.arantes.xyz/resources/fontawesome-free-5.5.0-web/js/all.js"></script>
+    <script defer src="https://dev.arantes.xyz/resources/fontawesome-free-5.5.0-web/js/all.js"></script>
 </head>
 
 <body onload="init()">
@@ -53,7 +53,7 @@
         <!-- Espacer -->
         <div class="mt-3"></div>
 
-        <!-- Modal starts here -->
+        <!-- Modal1 starts here -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -135,6 +135,66 @@
             </div>
         </div>
         <!-- Modal-1 ends here -->
+        <!-- Modal-2 starts here -->
+        <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><span id="mod2Title">Visualizar um registro</span></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form-livros">
+
+                            <div class="form-group row">
+                                <div class="col-sm-2">
+                                    <label for="inputIdShow">ID</label>
+                                    <input type="text" class="form-control" id="inputIdShow" disabled>
+                                </div>
+                                <div class="col-sm-3">
+                                    <label for="inputNumShow">Exemplar</label>
+                                    <input type="text" class="form-control" id="refInpShow" disabled>
+                                </div>
+                                <div class="col-sm-7">
+                                    <label for="nomeInpShow">Nome</label>
+                                    <input type="text" class="form-control" id="nomeInpShow" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-4">
+                                    <label for="autorInpShow">Autor</label>
+                                    <input type="text" class="form-control" id="autorInpShow" disabled>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="volInpShow">Volume</label>
+                                    <input type="text" class="form-control" id="volInpShow" disabled>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="clasInpShow">Classificação</label>
+                                    <input type="text" class="form-control" id="clasInpShow" disabled>
+                                </div>
+                                <div class="form-group col-sm-4">
+                                    <label>Imagem</label>
+                                    <img id='img-uploadShow' src="" />
+                                </div>
+                                <div class="col-sm-4">
+                                    <label for="statusInpShow">Status</label>
+                                    <input type="text" class="form-control" id="statusInpShow" disabled>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="button" class="btn btn-warning" id="btnGoUpdate" value="Alterar">
+                        <input type="button" class="btn btn-danger" id="btnGoDelete" value="Excluir">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal-2 ends here -->
         <div class="row">
             <div class="col-sm-12">
                 <table id="grid-contatos" class="table table-striped">
@@ -142,9 +202,8 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Nome</th>
-                            <th scope="col">Autor</th>
-                            <th scope="col">Volume</th>
                             <th scope="col">Status</th>
+                            <th scope="col">Ações</th>
                         </tr>
                     </thead>
                     <tbody id="table-contatos">
@@ -164,6 +223,8 @@
     <script src="js/fakedb.js"></script>
     <script src="js/avatar.js"></script>
     <script>
+        var isAlterar = false;
+        var isExcluir = false;
         function exibeContatos() {
             // Remove todas as linhas do corpo da tabela
             $("#table-contatos").html("");
@@ -171,8 +232,20 @@
             // Popula a tabela com os registros do banco de dados
             for (i = 0; i < db.data.length; i++) {
                 let book = db.data[i];
-                $("#table-contatos").append(`<tr><td scope="row">${book.id}</td><td>${book.nome}</td><td>${book.autor}</td><td>${book.volume}</td><td>${book.status}</td></tr>`);
+                $("#table-contatos").append(`<tr><td>${book.id}</td><td>${book.nome}</td><td>${book.status}</td><td><input type="button" class="btn btn-warning" onclick="acaoAlterar()" value="Alterar"><input type="button" class="btn btn-danger" onclick="acaoExcluir(${book.id})" value="Excluir"></td></tr>`);
             }
+        }
+
+        function acaoAlterar() {
+            console.log('é alterar');
+            isAlterar = true;
+        }
+
+        function acaoExcluir(id) {
+            console.log(id);
+            deleteLivro(parseInt(id));
+            exibeContatos();
+            isExcluir = true;
         }
 
         function init() {
@@ -194,7 +267,7 @@
                 let iImg = imgb64;
                 console.log(iImg);
                 let book = { ref: iRef, nome: iNome, autor: iAutor, volume: iVolume, classificacao: iClass, status: iStatus, img: iImg };
-                
+
                 insertBook(book);
 
                 // Reexibe os contatos
@@ -232,7 +305,7 @@
                 $('#exampleModal').modal('toggle');
             });
 
-            // Intercepta o click do botão Excluir
+            // Intercepta o click do botão Excluir (alterar modal)
             $("#btnDelete").click(function () {
                 let campoId = $("#inputId").val();
                 if (campoId == "") {
@@ -249,9 +322,34 @@
                 $('#exampleModal').modal('toggle');
             });
 
+            // Intercepta o click do botão Excluir (visualizar modal)
+            $("#btnGoDelete").click(function () {
+                let campoId = $("#inputIdShow").val();
+                if (campoId == "") {
+                    return;
+                }
+
+                deleteLivro(parseInt(campoId));
+
+                // Reexibe os contatos
+                exibeContatos();
+
+                // Fecha o modal
+                $('#exampleModal2').modal('toggle');
+            });
+
+
             // Intercepta o click do botão Listar Contatos
             $("#btnClear").click(function () {
                 $("#form-livros")[0].reset();
+            });
+
+            // Intercepta o click do botão ir para update
+            $("#btnGoUpdate").click(function () {
+                $('#exampleModal2').modal('toggle');
+                let id = $('#inputIdShow').val();
+
+                modal1Update(id);
             });
 
             // Intercepta o click do botão Novo Registro
@@ -262,13 +360,18 @@
                 $('#modTitle').text("Criar novo registro");
             });
 
-            // Escuta o evento do fechamendo do modal
+            // Escuta o evento do fechamendo do modal-1
             $('#exampleModal').on('hidden.bs.modal', function () {
                 $('#btnInsert').css("display", "none");
                 $('.alterar').css("display", "none");
                 $('#img-upload').attr('src', "imgs/placeholder.gif");
                 imgb64 = "imgs/placeholder.gif";
                 $('#modTitle').text("");
+            });
+
+            // Escuta o evento do fechamendo do modal-2
+            $('#exampleModal').on('hidden.bs.modal', function () {
+                // TODO
             });
 
             // Oculta a mensagem de aviso após alguns segundos
@@ -286,26 +389,43 @@
                 // let index = db.data.map(obj => obj.id).indexOf(parseInt(id));
                 let book = db.data[db.data.map(obj => obj.id).indexOf(parseInt(id))];
 
-                $('#exampleModal').modal('show');
+                if (isAlterar) {
+                    modal1Update(id)
+                    isAlterar = false;
+                } else if (isExcluir) {
+                    isExcluir = false;
+                } else {
+                    $('#exampleModal2').modal('show');
 
-                $('.alterar').css("display", "block");
-                $('#modTitle').text("Alterar um registro");
-
-                $('#inputId').val(id);
-                $('#refInp').val(book.ref);
-                $('#nomeInp').val(book.nome);
-                $("#autorInp").val(book.autor);
-                $('#volInp').val(book.volume);
-                $('#clasInp').val(book.classificacao);
-                $('#statusInp').val(book.status);
-                $('#img-upload').attr('src', book.imagem);
-
-                // TODO
-                // set the imagem
-
+                    $('#inputIdShow').val(id);
+                    $('#refInpShow').val(book.ref);
+                    $('#nomeInpShow').val(book.nome);
+                    $("#autorInpShow").val(book.autor);
+                    $('#volInpShow').val(book.volume);
+                    $('#clasInpShow').val(book.classificacao);
+                    $('#statusInpShow').val(book.status);
+                    $('#img-uploadShow').attr('src', book.imagem);
+                }
             });
 
             exibeContatos();
+        }
+
+        function modal1Update(id) {
+            let book = db.data[db.data.map(obj => obj.id).indexOf(parseInt(id))];
+            $('#exampleModal').modal('show');
+
+            $('.alterar').css("display", "block");
+            $('#modTitle').text("Alterar um registro");
+
+            $('#inputId').val(id);
+            $('#refInp').val(book.ref);
+            $('#nomeInp').val(book.nome);
+            $("#autorInp").val(book.autor);
+            $('#volInp').val(book.volume);
+            $('#clasInp').val(book.classificacao);
+            $('#statusInp').val(book.status);
+            $('#img-upload').attr('src', book.imagem);
         }
     </script>
 </body>

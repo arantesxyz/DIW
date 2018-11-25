@@ -52,6 +52,11 @@ label {
 #img-upload{
     width: 100%;
 }
+
+#img-uploadShow{
+    width: 100%;
+}
+
 .alterar, #btnInsert{
     display: none;
 }

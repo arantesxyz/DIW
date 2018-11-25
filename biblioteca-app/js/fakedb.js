@@ -9,7 +9,7 @@ var dbfake = {
             "volume": "2",
             "classificacao": "n sei",
             "status": "Disponível",
-            "imagem": "#"
+            "imagem": "imgs/placeholder.gif"
         },
         {
             "id": 2,
@@ -19,7 +19,7 @@ var dbfake = {
             "volume": "1",
             "classificacao": "n sei",
             "status": "Emprestado",
-            "imagem": "#"
+            "imagem": "imgs/placeholder.gif"
         },
     ]
 }
