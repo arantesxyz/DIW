@@ -37,11 +37,11 @@ function displayMessage(msg) {
 
 function insertBook(book) {
     // Verifica se existe algum dado no LocalStorage
-    if (db.data.length == 0){
+    if (db.data.length == 0) {
         var novoId = 1;
-    }else{
+    } else {
         // Calcula novo Id a partir do último código existente no array
-    var novoId = db.data[db.data.length - 1].id + 1;
+        var novoId = db.data[db.data.length - 1].id + 1;
     }
 
     let novoLivro = {
@@ -68,13 +68,16 @@ function updateLivro(id, book) {
     let index = db.data.map(obj => obj.id).indexOf(id);
 
     // Altera os dados do objeto no array
-    db.data[index].nome = book.nome,
-        db.data[index].autor = book.autor,
-        db.data[index].ref = book.ref,
-        db.data[index].volume = book.volume,
-        db.data[index].classificacao = book.classificacao,
-        db.data[index].status = book.status,
-        db.data[index].imagem = book.img
+    db.data[index].nome = book.nome;
+    db.data[index].autor = book.autor;
+    db.data[index].ref = book.ref;
+    db.data[index].volume = book.volume;
+    db.data[index].classificacao = book.classificacao;
+    db.data[index].status = book.status;
+    if (changed) {
+        db.data[index].imagem = book.img;
+        changed = false;
+    }
 
     displayMessage("Livro alterado com sucesso");
 

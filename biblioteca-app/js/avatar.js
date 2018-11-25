@@ -1,4 +1,5 @@
 var imgb64 = null;
+var changed = false;
 
 $(document).ready(function () {
     $(document).on('change', '.btn-file :file', function () {
@@ -32,6 +33,7 @@ $(document).ready(function () {
     }
 
     $("#imgInp").change(function () {
+        changed = true;
         readURL(this);
     });
 });

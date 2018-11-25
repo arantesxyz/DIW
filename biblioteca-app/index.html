@@ -273,8 +273,9 @@
                 let iVolume = $('#volInp').val();
                 let iClass = $('#clasInp').val();
                 let iStatus = $('#statusInp').val();
-                let iImg = imgb64;
-                let book = { ref: iRef, nome: iNome, autor: iAutor, volume: iVolume, classificacao: iClass, status: iStatus, img: iImg };
+                var iImgl = imgb64;
+
+                let book = { ref: iRef, nome: iNome, autor: iAutor, volume: iVolume, classificacao: iClass, status: iStatus, img: iImgl };
 
                 updateLivro(parseInt(campoId), book);
 
